@@ -973,11 +973,111 @@
     50% { opacity: 0; }
   }
 
+  /* Hamburger button */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 110;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
   /* Responsive */
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
-    #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
-    .hero-right { display: none; }
+
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+      position: fixed;
+      top: 0; right: 0;
+      width: 260px;
+      height: 100vh;
+      flex-direction: column;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      padding: 80px 32px 32px;
+      gap: 24px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 105;
+    }
+
+    .nav-links.open {
+      transform: translateX(0);
+    }
+
+    .nav-links a {
+      font-size: 14px;
+    }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 104;
+    }
+
+    .nav-overlay.open {
+      display: block;
+    }
+
+    #hero {
+      grid-template-columns: 1fr;
+      padding: 100px 24px 60px;
+      text-align: center;
+    }
+
+    .hero-text { margin: 0 auto; }
+
+    .hero-tag { justify-content: center; }
+
+    .hero-bio { margin-left: auto; margin-right: auto; }
+
+    .hero-actions { justify-content: center; }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      order: -1;
+    }
+
+    .photo-frame {
+      width: 180px;
+      height: 220px;
+    }
+
+    .stats-row {
+      max-width: 320px;
+    }
+
+    .stat-val { font-size: 16px; }
+    .stat-lbl { font-size: 8px; }
+
     section { padding: 80px 24px; }
     .trading-grid { grid-template-columns: 1fr; }
     .edu-grid { grid-template-columns: 1fr 1fr; }
@@ -986,20 +1086,47 @@
     .exp-item { grid-template-columns: 1fr; gap: 8px; }
     footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
   }
+
+  @media (max-width: 480px) {
+    #hero { padding: 90px 16px 40px; }
+    section { padding: 60px 16px; }
+
+    .photo-frame {
+      width: 150px;
+      height: 185px;
+    }
+
+    .stats-row {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 280px;
+    }
+
+    .stat-card { padding: 10px 6px; }
+    .stat-val { font-size: 14px; }
+
+    .edu-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .trading-metrics { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-logo">JP // QUANT</div>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#trading">Trading</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-overlay" id="navOverlay"></div>
 
 <!-- HERO -->
 <section id="hero">
@@ -1361,6 +1488,34 @@
 </footer>
 
 <script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  const navOverlay = document.getElementById('navOverlay');
+
+  function closeNav() {
+    navToggle.classList.remove('active');
+    navLinks.classList.remove('open');
+    navOverlay.classList.remove('open');
+  }
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.contains('open');
+    if (isOpen) {
+      closeNav();
+    } else {
+      navToggle.classList.add('active');
+      navLinks.classList.add('open');
+      navOverlay.classList.add('open');
+    }
+  });
+
+  navOverlay.addEventListener('click', closeNav);
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeNav);
+  });
+
   // Fade-in on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
