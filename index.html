@@ -1134,9 +1134,9 @@
     <div class="hero-tag">Available Summer 2026</div>
     <h1>Juhyeong<br><em>Park</em></h1>
     <p class="hero-bio">
-      Quantitative developer building systematic trading infrastructure from scratch.
-      Final-year CS + Management at King's College London. Two years designing,
-      backtesting, and operating an algorithmic crypto trading system.<span class="cursor"></span>
+      Quantitative trading developer with two years' experience designing, backtesting, and deploying algorithmic crypto trading systems.
+      Built and operate a live multi-coin momentum scalper scanning 30–40 altcoins on Binance Futures (Sharpe 5.95, PF 1.70, 2,037 trades, fee-inclusive).
+      Final-year CS with Management at King's College London. Certified Investment Manager (KOFIA).<span class="cursor"></span>
     </p>
     <div class="hero-actions">
       <a href="mailto:jhg.park0304@gmail.com" class="btn btn-primary">Get in touch</a>
@@ -1151,16 +1151,16 @@
     </div>
     <div class="stats-row">
       <div class="stat-card">
-        <span class="stat-val">1.82</span>
+        <span class="stat-val">5.95</span>
         <span class="stat-lbl">Sharpe Ratio</span>
       </div>
       <div class="stat-card">
-        <span class="stat-val">2.00</span>
+        <span class="stat-val">1.70</span>
         <span class="stat-lbl">Profit Factor</span>
       </div>
       <div class="stat-card">
-        <span class="stat-val">4.48</span>
-        <span class="stat-lbl">Calmar Ratio</span>
+        <span class="stat-val">2,037</span>
+        <span class="stat-lbl">Total Trades</span>
       </div>
     </div>
   </div>
@@ -1176,8 +1176,8 @@
 
   <div class="trading-grid">
     <div class="trading-desc fade-in">
-      <p>BTC/USDT 5-minute scalping strategy with multi-indicator confluence signals — EMA crossover, VWAP, RSI, ATR volatility filter, and partial take-profit management.</p>
-      <p>Backtested over 6.2 years of historical data (2020–2026) across 646,000 candles. Full production infrastructure with real-time data ingestion, automated execution, and live Telegram monitoring.</p>
+      <p>Multi-coin momentum scalper scanning 30–40 altcoins on Binance USDT-M Futures with 6-confluence entry: EMA alignment, VWAP, RSI, volume surge, ATR filter. Composite scoring ranks simultaneous signals; ATR-based dynamic position sizing caps risk at 2% of equity per trade (max 3 concurrent positions).</p>
+      <p>Production 24/7: real-time WebSocket ingestion, sub-second signal processing, automated order execution (maker/taker fee-aware limit orders), Telegram API monitoring with interactive commands. Risk framework with volatility-adjusted leverage (up to 20×) and 2-stage trailing stop (break-even at 1R, lock profit at 1.5R).</p>
       <div class="mini-chart">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1185,10 +1185,10 @@
         <div class="bar"></div>
       </div>
       <div class="tags" style="margin-top: 28px">
+        <span class="tag">Python 3.12 (asyncio)</span>
         <span class="tag">Binance Futures API</span>
         <span class="tag">WebSocket</span>
-        <span class="tag">Python</span>
-        <span class="tag">NumPy / Pandas</span>
+        <span class="tag">SQLite / Parquet</span>
         <span class="tag">CCXT</span>
         <span class="tag">Telegram API</span>
       </div>
@@ -1196,36 +1196,36 @@
 
     <div class="trading-metrics fade-in">
       <div class="metric-tile">
-        <div class="label">CAGR (Gross)</div>
-        <div class="value positive">+146%</div>
+        <div class="label">In-Sample Sharpe</div>
+        <div class="value positive">5.95</div>
       </div>
       <div class="metric-tile">
-        <div class="label">Sharpe Ratio</div>
-        <div class="value positive">1.82</div>
+        <div class="label">In-Sample PF</div>
+        <div class="value positive">1.70</div>
       </div>
       <div class="metric-tile">
-        <div class="label">Profit Factor</div>
-        <div class="value positive">2.00</div>
+        <div class="label">In-Sample MDD</div>
+        <div class="value negative">−33.0%</div>
       </div>
       <div class="metric-tile">
-        <div class="label">Max Drawdown</div>
-        <div class="value negative">−32.6%</div>
+        <div class="label">OOS Sharpe (2026)</div>
+        <div class="value positive">8.71</div>
       </div>
       <div class="metric-tile">
-        <div class="label">Calmar Ratio</div>
-        <div class="value positive">4.48</div>
+        <div class="label">OOS PF (2026)</div>
+        <div class="value positive">1.60</div>
       </div>
       <div class="metric-tile">
-        <div class="label">CAGR (Fee-adj.)</div>
-        <div class="value positive">+77%</div>
+        <div class="label">OOS MDD (2026)</div>
+        <div class="value negative">−19.3%</div>
       </div>
       <div class="metric-tile">
-        <div class="label">Sharpe (Fee-adj.)</div>
-        <div class="value positive">1.42</div>
+        <div class="label">Total Trades (IS)</div>
+        <div class="value">2,037</div>
       </div>
       <div class="metric-tile">
-        <div class="label">Total Trades</div>
-        <div class="value">406</div>
+        <div class="label">OOS Trades (2026)</div>
+        <div class="value">362</div>
       </div>
     </div>
   </div>
@@ -1248,9 +1248,10 @@
       <div>
         <div class="exp-role">Algorithmic Trading Developer</div>
         <ul class="exp-details">
-          <li>Designed and operated a BTC/USDT scalping strategy with multi-indicator confluence signals and partial take-profit management.</li>
-          <li>Built real-time market data ingestion pipeline via Binance Futures API and WebSocket streams, supporting 24/7 automated execution with sub-second signal processing.</li>
-          <li>Managed live trading risk including position sizing, slippage handling, API rate limit management, and exchange downtime contingencies.</li>
+          <li>Built event-driven multi-symbol backtesting engine synchronising 200+ instruments, with paper/live dual-mode execution, SQLite state persistence, and graceful reconnection with missed-candle recovery.</li>
+          <li>Designed 5-min momentum strategy with 6-confluence entry (EMA alignment, VWAP, RSI, volume surge, ATR filter) scanning 30–40 altcoins. Composite scoring ranks simultaneous signals; ATR-based dynamic position sizing caps risk at 2% of equity per trade.</li>
+          <li>Multi-coin in-sample 2025 (2,037 trades, fee-inclusive): PF 1.70, Sharpe 5.95, MDD −33.0%; out-of-sample 2026 YTD (362 trades): PF 1.60, Sharpe 8.71, MDD −19.3%.</li>
+          <li>Production 24/7: real-time WebSocket ingestion, sub-second signal processing, automated order execution, Telegram API monitoring with interactive commands.</li>
         </ul>
       </div>
     </div>
